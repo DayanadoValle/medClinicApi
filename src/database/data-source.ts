@@ -1,11 +1,10 @@
-import "reflect-metadata";
-import { DataSource } from "typeorm";
-import { env } from "../config/env";
-import { User } from "../entities/User";
-
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
+import { env } from '../config/env';
+import { User } from '../entities/User';
 
 export const AppDataSource = new DataSource({
-  type: "postgres",
+  type: 'postgres',
   host: env.db.host,
   port: env.db.port,
   username: env.db.username,
@@ -14,5 +13,5 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
   entities: [User],
-  migrations: ["src/database/migrations/*.ts"],
+  migrations: ['src/database/migrations/*.ts'],
 });

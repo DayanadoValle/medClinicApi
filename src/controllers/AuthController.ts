@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
-import { AuthService } from "../services/AuthService";
-import { CreateUserDTO, LoginDTO } from "../dtos/user.dto";
+import { Request, Response, NextFunction } from 'express';
+import { AuthService } from '../services/AuthService';
+import { CreateUserDTO, LoginDTO } from '../dtos/user.dto';
 
 export class AuthController {
   private readonly authService: AuthService;
@@ -12,7 +12,7 @@ export class AuthController {
   register = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const data = req.body as CreateUserDTO;
@@ -27,7 +27,7 @@ export class AuthController {
   login = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<void> => {
     try {
       const data = req.body as LoginDTO;

@@ -1,15 +1,15 @@
-import { UserRepository } from "../repositories/UserRepository";
+import { UserRepository } from '../repositories/UserRepository';
 import {
   CreateUserDTO,
   LoginDTO,
   AuthResponseDTO,
   UserResponseDTO,
-} from "../dtos/user.dto";
-import { hashPassword, comparePassword } from "../utils/hash";
-import { generateToken } from "../utils/jwt";
-import { AppError } from "../utils/AppError";
-import { UserRole } from "../entities/UserRole";
-import { User } from "../entities/User";
+} from '../dtos/user.dto';
+import { hashPassword, comparePassword } from '../utils/hash';
+import { generateToken } from '../utils/jwt';
+import { AppError } from '../utils/AppError';
+import { UserRole } from '../entities/UserRole';
+import { User } from '../entities/User';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,23 +34,23 @@ export class AuthService {
     const { name, email, password, role } = data;
 
     if (!name || !email || !password) {
-      throw new AppError("Nome, e-mail e senha sao obrigatorios.", 400);
+      throw new AppError('Nome, e-mail e senha sao obrigatorios.', 400);
     }
 
     if (!EMAIL_REGEX.test(email)) {
-      throw new AppError("Formato de e-mail invalido.", 400);
+      throw new AppError('Formato de e-mail invalido.', 400);
     }
 
     if (password.length < 6) {
-      throw new AppError("A senha deve possuir no minimo 6 caracteres.", 400);
+      throw new AppError('A senha deve possuir no minimo 6 caracteres.', 400);
     }
 
     const existingUser = await this.userRepository.findByEmail(email);
 
     if (existingUser) {
       throw new AppError(
-        "Ja existe um usuario cadastrado com este e-mail.",
-        409
+        'Ja existe um usuario cadastrado com este e-mail.',
+        409,
       );
     }
 
@@ -70,19 +70,19 @@ export class AuthService {
     const { email, password } = data;
 
     if (!email || !password) {
-      throw new AppError("E-mail e senha sao obrigatorios.", 400);
+      throw new AppError('E-mail e senha sao obrigatorios.', 400);
     }
 
     const user = await this.userRepository.findByEmailWithPassword(email);
 
     if (!user) {
-      throw new AppError("Credenciais invalidas.", 401);
+      throw new AppError('Credenciais invalidas.', 401);
     }
 
     const passwordMatches = await comparePassword(password, user.password);
 
     if (!passwordMatches) {
-      throw new AppError("Credenciais invalidas.", 401);
+      throw new AppError('Credenciais invalidas.', 401);
     }
 
     const token = generateToken({
@@ -100,7 +100,7 @@ export class AuthService {
     const user = await this.userRepository.findById(userId);
 
     if (!user) {
-      throw new AppError("Usuario nao encontrado.", 404);
+      throw new AppError('Usuario nao encontrado.', 404);
     }
 
     return toUserResponse(user);
