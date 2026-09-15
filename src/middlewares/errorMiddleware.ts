@@ -7,7 +7,7 @@ export function errorMiddleware(
   _req: Request,
   res: Response,
 
-  _next: NextFunction,
+  _: NextFunction,
 ): void {
   if (err instanceof AppError) {
     res.status(err.statusCode).json({ message: err.message });

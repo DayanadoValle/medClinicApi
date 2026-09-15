@@ -35,7 +35,7 @@ export function authMiddleware(
     req.user = payload;
 
     next();
-  } catch (error) {
+  } catch  {
     res.status(401).json({
       message: 'Token invalido ou expirado.',
     });
