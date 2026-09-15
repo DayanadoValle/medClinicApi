@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-import { verifyToken, TokenPayload } from "../utils/jwt";
+import { verifyToken, TokenPayload } from '../utils/jwt';
 
 export interface AuthenticatedRequest extends Request {
   user?: TokenPayload;
@@ -9,22 +9,22 @@ export interface AuthenticatedRequest extends Request {
 export function authMiddleware(
   req: AuthenticatedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
     res.status(401).json({
-      message: "Token de autenticacao nao informado.",
+      message: 'Token de autenticacao nao informado.',
     });
     return;
   }
 
-  const [scheme, token] = authHeader.split(" ");
+  const [scheme, token] = authHeader.split(' ');
 
-  if (scheme !== "Bearer" || !token) {
+  if (scheme !== 'Bearer' || !token) {
     res.status(401).json({
-      message: "Formato de token invalido. Utilize: Bearer <token>.",
+      message: 'Formato de token invalido. Utilize: Bearer <token>.',
     });
     return;
   }
@@ -37,7 +37,7 @@ export function authMiddleware(
     next();
   } catch (error) {
     res.status(401).json({
-      message: "Token invalido ou expirado.",
+      message: 'Token invalido ou expirado.',
     });
   }
 }

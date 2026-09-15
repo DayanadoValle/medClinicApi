@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
-import { AppError } from "../utils/AppError";
+import { AppError } from '../utils/AppError';
 
 export function errorMiddleware(
   err: Error,
@@ -14,9 +14,9 @@ export function errorMiddleware(
     return;
   }
 
-  console.error("[ErrorMiddleware] Erro nao tratado:", err);
+  console.error('[ErrorMiddleware] Erro nao tratado:', err);
 
-  res.status(500).json({ message: "Erro interno no servidor." });
+  res.status(500).json({ message: 'Erro interno no servidor.' });
 }
 
 export function notFoundMiddleware(req: Request, res: Response): void {
