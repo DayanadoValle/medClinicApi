@@ -6,7 +6,6 @@ import { routes } from "./routes";
 import { errorMiddleware, notFoundMiddleware } from "./middlewares/errorMiddleware";
 import { env } from "./config/env";
 
-
 async function bootstrap(): Promise<void> {
   const app: Application = express();
 
@@ -16,10 +15,10 @@ async function bootstrap(): Promise<void> {
   app.use(routes);
 
   app.use(notFoundMiddleware);
-  app.use(errorMiddleware); // 
+  app.use(errorMiddleware);
 
   try {
-    await AppDataSource.initialize(); 
+    await AppDataSource.initialize();
     console.log("Conexao com o banco de dados estabelecida com sucesso.");
 
     app.listen(env.port, () => {
